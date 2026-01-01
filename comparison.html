@@ -65,6 +65,63 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Social Share Styles */
+        .social-share {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .social-share h4 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .share-btn.twitter { background: #1DA1F2; }
+        .share-btn.facebook { background: #1877F2; }
+        .share-btn.linkedin { background: #0A66C2; }
+        .share-btn.email { background: #EA4335; }
+        .share-btn.copy { background: #6c757d; }
+
+        @media (max-width: 768px) {
+            .share-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .share-btn {
+                justify-content: center;
+            }
+        }
+
         .comparison-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -329,6 +386,46 @@
                 <p>but if you can handle waiting 8 months for that first win? hybrid gives you the best of both worlds.</p>
             </div>
 
+            <!-- Social Share Buttons -->
+            <div class="social-share">
+                <h4>Share This Comparison</h4>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn twitter" onclick="shareOnTwitter(); return false;" title="Share on Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                        </svg>
+                        Tweet
+                    </a>
+                    <a href="#" class="share-btn facebook" onclick="shareOnFacebook(); return false;" title="Share on Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                        </svg>
+                        Share
+                    </a>
+                    <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn(); return false;" title="Share on LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                        Share
+                    </a>
+                    <a href="#" class="share-btn email" onclick="shareViaEmail(); return false;" title="Share via Email">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Email
+                    </a>
+                    <a href="#" class="share-btn copy" onclick="copyLink(); return false;" title="Copy Link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        Copy
+                    </a>
+                </div>
+            </div>
+
             <h2>Try It With Your Numbers</h2>
 
             <p>alex's situation is just one example. your loans are different. your budget is different. your personality is different.</p>
@@ -374,6 +471,41 @@
         <p>Want to run your own numbers? <a href="https://www.itsyourincome.com" target="_blank">Try the calculator at ItsYourIncome.com</a></p>
         <p class="footer-note">This is an educational resource. Not financial advice.</p>
     </footer>
+
+    <script>
+    function shareOnTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent("See how much different loan payoff strategies can save you. Real calculator results comparing avalanche, snowball, and hybrid methods.");
+        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=550,height=420');
+    }
+
+    function shareOnFacebook() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=550,height=420');
+    }
+
+    function shareOnLinkedIn() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=550,height=420');
+    }
+
+    function shareViaEmail() {
+        const subject = encodeURIComponent("Student Loan Payoff Strategy Comparison");
+        const body = encodeURIComponent(`I thought you might find this helpful - it compares different loan payoff strategies with real numbers:\n\n${window.location.href}`);
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const btn = event.target.closest('.share-btn');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = btn.innerHTML.replace('Copy', 'Copied!');
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+            }, 2000);
+        });
+    }
+    </script>
 </body>
 </html>
 
